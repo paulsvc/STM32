@@ -155,6 +155,8 @@ void lcd16x2_home()
   */
 void lcd16x2_gotoxy(uint8_t x, uint8_t y)
 {
+	
+
 #if LCD16X2_LINES == 1 
 	lcd16X2_write_command(LCD16X2_SET_DDRAM_ADDRESS |
 		(LCD16X2_START_LINE_1 + x));
@@ -165,7 +167,42 @@ void lcd16x2_gotoxy(uint8_t x, uint8_t y)
 	else
 		lcd16x2_write_command(LCD16X2_SET_DDRAM_ADDRESS | 
 			(LCD16X2_START_LINE_2 + x));
+#elif LCD16X2_LINES == 4
+	if (y == 0)
+		lcd16x2_write_command(LCD16X2_SET_DDRAM_ADDRESS | 
+			(LCD16X2_START_LINE_1 + x));
+	else if (y == 1)
+		lcd16x2_write_command(LCD16X2_SET_DDRAM_ADDRESS | 
+			(LCD16X2_START_LINE_2 + x));
+	else if (y == 2)
+		lcd16x2_write_command(LCD16X2_SET_DDRAM_ADDRESS | 
+			(LCD16X2_START_LINE_3 + x));
+	else
+		lcd16x2_write_command(LCD16X2_SET_DDRAM_ADDRESS | 
+			(LCD16X2_START_LINE_4 + x));
 #endif
+
+	/*
+switch(y)
+{
+	case 1 :
+	lcd16X2_write_command(LCD16X2_SET_DDRAM_ADDRESS |
+		(LCD16X2_START_LINE_1 + x));
+	break;
+	case 2 :
+	lcd16X2_write_command(LCD16X2_SET_DDRAM_ADDRESS |
+		(LCD16X2_START_LINE_2 + x));
+	break;
+	case 3 : 
+	lcd16X2_write_command(LCD16X2_SET_DDRAM_ADDRESS |
+		(LCD16X2_START_LINE_3 + x));
+	break;
+	case 4 :
+	lcd16X2_write_command(LCD16X2_SET_DDRAM_ADDRESS |
+		(LCD16X2_START_LINE_4 + x));
+	break;
+}	
+*/
 }
 
 /**
